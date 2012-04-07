@@ -1,0 +1,47 @@
+body {
+	font-family: Helvetica, Arial, Sans-serif;
+	font-size: 11px;
+	color: #414141;
+	-webkit-font-smoothing:antialiased;
+	-moz-font-smoothing:antialiased;
+	-o-font-smoothing:antialiased;
+	font-smoothing:antialiased;
+	background-color: #eee;
+}
+#main {
+	padding: 0 75px;
+	margin: 10px;
+	background-color:#FFF;
+}
+
+#head {
+
+}
+
+#head-left {
+	float: left;
+}
+
+#head-right {
+	float: right;
+}
+
+.work-item {
+	width: 250px;
+	height: 205px;
+	margin: 2px;
+	display: inline-block;
+}
+
+.work-item .desc {
+	width: 224px; /* 250 - 26 */
+	height: 58px; /* 84 - 26 */
+	margin-top: -2px;
+	text-align: center;
+	padding:13px;
+}
+
+.work-item .desc .title {
+	display: block;
+	font-weight: bold;
+}
