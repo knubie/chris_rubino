@@ -7,6 +7,22 @@ $(document).ready(function(){
 	function(){
 		$(this).children('.desc').css('background-color', '#FFFFFF');
 	});
+	var position = function(){
+		console.log('hi');
+		$('#main-tinted').css('width', $(window).width()-20).css('height', $(window).height()-10);
+		$('.work-lightbox').css('top', function(){
+			console.log($(this).height());
+			return $(window).height()/2 - $(this).height()/2;
+		});
+		$('.work-lightbox').css('left', function(){
+			return $(window).width()/2 - $(this).width()/2;
+		});
+	};
+
+	var lightboxFadeOut = function(){
+		$('#main-tinted').fadeOut();
+		$('.work-lightbox').fadeOut();
+	}
 
 	// Filters
 	$('#filter > a').click(function(){
@@ -21,5 +37,23 @@ $(document).ready(function(){
 		};
 
 	});
+
+	// Lightbox
+
+	$('.work-link').click(function(){
+		$('#main-tinted').fadeIn();
+		$('.work-lightbox').show();
+		position();
+	});
+
+	$('#main-tinted').click(function(){
+		lightboxFadeOut();
+	});
+
+	
+	// On window resize
+
+	position();
+	$(window).resize(position());
 
 });

@@ -8,10 +8,30 @@ body {
 	font-smoothing:antialiased;
 	background-color: #eee;
 }
+
+a:link {
+	color: #414141;
+}
+
 #main {
 	padding: 0 75px;
 	margin: 10px;
 	background-color:#FFF;
+}
+
+#main-tinted {
+	background-color: #000;
+	opacity: 0.6;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	display: none;
+}
+
+#twitter {
+	position:absolute;
+	top: 10px;
+	right: 10px;
 }
 
 #head {
@@ -44,4 +64,20 @@ body {
 .work-item .desc .title {
 	display: block;
 	font-weight: bold;
+}
+
+.work-lightbox {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.work-lightbox .bottom-bar {
+	background-color: #cecece;
+}
+
+.work-lightbox .bottom-bar .title {
+	text-transform: uppercase;
+	float: left;
 }
