@@ -20,8 +20,8 @@ a:link {
 }
 
 #main-tinted {
-	background-color: #000;
-	opacity: 0.6;
+	background-color: #333;
+	opacity: 0.8;
 	position: absolute;
 	top: 10px;
 	left: 10px;
@@ -35,15 +35,40 @@ a:link {
 }
 
 #head {
-
+	height: 133px;
+	vertical-align: bottom;
 }
 
 #head-left {
 	float: left;
 }
+#headline {
+	font-size: 21px;
+	text-transform: uppercase;
+}
+#subhead {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+#rule {
+	width: 200px;
+	border-bottom: 1px solid #424242;
+}
+.sections {
+	text-transform: uppercase;
+	font-weight: medium;
+}
 
 #head-right {
 	float: right;
+}
+
+#head-right img {
+	margin-right: 17px;
+}
+
+#info {
+	display: inline-block;
 }
 
 .work-item {
@@ -71,13 +96,40 @@ a:link {
 	position: absolute;
 	top: 0;
 	left: 0;
+	background-color: #eeeeee;
 }
 
 .work-lightbox .bottom-bar {
-	background-color: #cecece;
+	background-color: #eeeeee;
+	opacity: 0.9;
+	margin-top: -2px;
+	padding-top: 10px;
+	height: 20px;
+	text-align: center;
 }
 
 .work-lightbox .bottom-bar .title {
 	text-transform: uppercase;
 	float: left;
+	margin-left: 15px;
+	width: 0px;
+}
+
+.work-lightbox .bottom-bar .slide-ctrl {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+.work-lightbox .bottom-bar .slide-ctrl .slide-count {
+	vertical-align: top;
+	margin: 0 35px;
+}
+.work-lightbox .bottom-bar .details {
+	text-transform: uppercase;
+	float: right;
+	margin-right: 15px;
+}
+
+.work-lightbox .stretcher {
+	display: none;
 }
