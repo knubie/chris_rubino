@@ -115,6 +115,24 @@ a:link {
 	width: 0px;
 }
 
+.work-lightbox .desc-box {
+	position: absolute;
+	left: 0;
+	bottom: 30px;
+	background-color: #eeeeee;
+	opacity: 0.95;
+	display: none;
+	color: #636363;
+	padding: 40px 80px;
+	line-height: 1.5;
+}
+
+.work-lightbox .desc-box .x {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
 .work-lightbox .bottom-bar .slide-ctrl {
 	display: inline-block;
 	margin: 0 auto;
@@ -128,8 +146,16 @@ a:link {
 	text-transform: uppercase;
 	float: right;
 	margin-right: 15px;
+	text-decoration: none;
 }
 
 .work-lightbox .stretcher {
 	display: none;
+}
+
+#proj-nav {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 99;
 }
