@@ -11,10 +11,11 @@ body {
 
 a:link {
 	color: #414141;
+	text-decoration: none;
 }
 
 #main {
-	padding: 0 75px;
+	padding: 40px 75px;
 	margin: 10px;
 	background-color:#FFF;
 }
@@ -22,7 +23,7 @@ a:link {
 #main-tinted {
 	background-color: #333;
 	opacity: 0.8;
-	position: absolute;
+	position: fixed;
 	top: 10px;
 	left: 10px;
 	display: none;
@@ -42,6 +43,29 @@ a:link {
 #head-left {
 	float: left;
 }
+#head-left .sections {
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-bottom: 3px;
+}
+#head-left #rule {
+	width: 200px;
+	border-bottom: 1px solid #424242;
+	margin: 6px 0;
+}
+#head-left #bottom {
+	line-height: 1.7;
+}
+#head-left #bottom #filter {
+	display: inline;
+}
+#head-left #bottom #filter a {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+#head-left #bottom #filter a:hover {
+	border-bottom: 1px solid #424242;
+}
 #headline {
 	font-size: 21px;
 	text-transform: uppercase;
@@ -49,26 +73,21 @@ a:link {
 #subhead {
 	font-size: 12px;
 	text-transform: uppercase;
-}
-#rule {
-	width: 200px;
-	border-bottom: 1px solid #424242;
-}
-.sections {
-	text-transform: uppercase;
-	font-weight: medium;
+	margin-top: 5px;
 }
 
 #head-right {
 	float: right;
+	text-align: right;
 }
 
 #head-right img {
-	margin-right: 17px;
+	margin-left: 17px;
 }
 
 #info {
 	display: inline-block;
+	line-height: 1.3;
 }
 
 .work-item {
@@ -84,6 +103,7 @@ a:link {
 	margin-top: -2px;
 	text-align: center;
 	padding:13px;
+	line-height: 1.3;
 }
 
 .work-item .desc .title {
@@ -93,7 +113,7 @@ a:link {
 
 .work-lightbox {
 	display: none;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	background-color: #eeeeee;
@@ -112,7 +132,6 @@ a:link {
 	text-transform: uppercase;
 	float: left;
 	margin-left: 15px;
-	width: 0px;
 }
 
 .work-lightbox .desc-box {
@@ -146,7 +165,7 @@ a:link {
 	text-transform: uppercase;
 	float: right;
 	margin-right: 15px;
-	text-decoration: none;
+	font-style: italic;
 }
 
 .work-lightbox .stretcher {
@@ -154,8 +173,22 @@ a:link {
 }
 
 #proj-nav {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	right: 0;
 	z-index: 99;
+	display: none;
+}
+#proj-nav #padding {
+	background-color: #eee;
+	padding: 8px 8px 0 8px;
+	height: 21px;
+	display: inline-block;
+	text-transform: uppercase;
+	margin: 0;
+}
+#proj-nav #proj-x {
+	margin: 0 0 -2px -2px;
+	display: inline-block;
+	vertical-align: bottom;
 }

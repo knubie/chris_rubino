@@ -7,15 +7,24 @@ $(document).ready(function(){
 	function(){
 		$(this).children('.desc').css('background-color', '#FFFFFF');
 	});
+	$('#head-right > img').hover(function(){
+			console.log('hey');
+			this.src = this.src.replace('up','down');
+	}, function() {
+			this.src = this.src.replace('down','up');
+	});
 
 
 
 	// Filters
-	$('#filter > a').click(function(){
+	$('#filter > a:link').click(function(){
 		var cat = '.' + $(this).attr('data-cat');
 		if (cat === '.all') {
 			$('.work-item').removeClass('hide-me').show();
+			$('#filter > a:link').css('border-bottom', 'none');
 		} else {
+			$('#filter > a:link').css('border-bottom', 'none');
+			$(this).css('border-bottom', '1px solid #424242');
 			$('.work-item').addClass('hide-me');
 			$(cat).removeClass('hide-me');
 			$('.hide-me').hide();
@@ -26,44 +35,47 @@ $(document).ready(function(){
 
 	// Lightbox
 
-	var lightboxFadeOut = function(lightBox){
-		$('#main-tinted').fadeOut();
-		lightBox.fadeOut();
-	}
-
-	var position = function(lightBox){
-		$('#main-tinted').css('width', $(window).width()-20).css('height', $(window).height()-10);
-		lightBox.css('top', function(){
-			return $(window).height()/2 - $(this).height()/2;
-		});
-		$('.work-lightbox').css('left', function(){
-			return $(window).width()/2 - $(this).width()/2;
-		});
-		$('.details').css('margin-left', function(){
-			return 0 - $(this).width();
-		});
-	};
-
-	var initLightBox = function(lightBox){
-		numSlides = lightBox.children('img').length;
-		slides = lightBox.children('img');
-		currSlide = 0;
-		transitioning = false;
-
-		// Inject slide count
-		lightBox.find('.slide-count').text(currSlide+1+" of " + numSlides);
-
-		// Display initial elements
-		$('#main-tinted').fadeIn();
-		lightBox.fadeIn();
-		slides.hide();
-		$('.work-lightbox img:first-child').show();
-		lightBox.css('width', '');
-		lightBox.css('height', '');
-		position(lightBox);
-	};
-
 	(function(){
+
+		var lightboxFadeOut = function(lightBox){
+			$('#main-tinted').fadeOut();
+			lightBox.fadeOut();
+		}
+
+		var position = function(lightBox){
+			$('#main-tinted').css('width', $(window).width()-20).css('height', $(window).height()-10);
+			lightBox.css('top', function(){
+				return $(window).height()/2 - $(this).height()/2;
+			});
+			$('.work-lightbox').css('left', function(){
+				return $(window).width()/2 - $(this).width()/2;
+			});
+			$('.work-lightbox > .bottom-bar > .title').css('margin-right', function(){
+				return 0 -$(this).width();
+			});
+			$('.details').css('margin-left', function(){
+				return 0 - $(this).width();
+			});
+		};
+
+		var initLightBox = function(lightBox){
+			numSlides = lightBox.children('img').length;
+			slides = lightBox.children('img');
+			currSlide = 0;
+			transitioning = false;
+
+			// Inject slide count
+			lightBox.find('.slide-count').text(currSlide+1+" of " + numSlides);
+
+			// Display initial elements
+			$('#main-tinted').fadeIn();
+			lightBox.fadeIn();
+			slides.hide();
+			$('.work-lightbox img:first-child').show();
+			lightBox.css('width', '');
+			lightBox.css('height', '');
+			position(lightBox);
+		};
 
 		var lightBox = $('.work-lightbox'),
 				numSlides,
@@ -76,6 +88,7 @@ $(document).ready(function(){
 			// Establish context
 			lightBox = $(this).next('.work-lightbox');
 			initLightBox(lightBox);
+			$('#proj-nav').fadeIn('fast');
 
 		});
 
@@ -114,13 +127,7 @@ $(document).ready(function(){
 						top: 			 $(window).height()/2 - slides.eq(currSlide).height()/2,
 						left: 		 $(window).width()/2 - slides.eq(currSlide).width()/2
 					}, {
-						step: 		 function(){
-							// position(lightBox);
-							// console.log('window width '+$(window).width()/2);
-							// console.log('box width '+lightBox.width()/2);
-							// console.log('left should be '+($(window).width()/2-lightBox.width()/2));
-							// console.log("but it's actually "+lightBox.css('left'));
-						},
+						step: 		 function(){},
 						duration:  500,
 						complete:  function(){ 
 							lightBox.find('.stretcher').hide();
@@ -141,6 +148,7 @@ $(document).ready(function(){
 
 		$('#main-tinted, #proj-x').click(function(){
 			lightboxFadeOut(lightBox);
+			$('#proj-nav').fadeOut('fast');
 		});
 
 	})();
