@@ -1,5 +1,15 @@
 $(document).ready(function(){
 
+	// Query string
+
+	function getParameterByName(name) {
+
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+
+	}
+
 	// Visual effects
 	$('.work-item').hover(function(){
 		$(this).children('.desc').css('background-color', $(this).attr('data-color'));
@@ -8,7 +18,6 @@ $(document).ready(function(){
 		$(this).children('.desc').css('background-color', '#FFFFFF');
 	});
 	$('#head-right > img').hover(function(){
-			console.log('hey');
 			this.src = this.src.replace('up','down');
 	}, function() {
 			this.src = this.src.replace('down','up');
@@ -17,13 +26,24 @@ $(document).ready(function(){
 
 
 	// Filters
-	$('#filter > a:link').click(function(){
+
+	$('#filter-container').hover(function(){
+		$('#filter').stop().animate({
+			width: 500
+		}, 250, false);
+	}, function(){
+		$('#filter').stop().animate({
+			width: 0
+		}, 250, false);
+	})
+	$('#inner-filters > a:link').click(function(){
+		console.log('hello');
 		var cat = '.' + $(this).attr('data-cat');
 		if (cat === '.all') {
 			$('.work-item').removeClass('hide-me').show();
-			$('#filter > a:link').css('border-bottom', 'none');
+			$('#inner-filters > a:link').css('border-bottom', 'none');
 		} else {
-			$('#filter > a:link').css('border-bottom', 'none');
+			$('#inner-filters > a:link').css('border-bottom', 'none');
 			$(this).css('border-bottom', '1px solid #424242');
 			$('.work-item').addClass('hide-me');
 			$(cat).removeClass('hide-me');
@@ -47,16 +67,17 @@ $(document).ready(function(){
 			lightBox.css('top', function(){
 				return $(window).height()/2 - $(this).height()/2;
 			});
-			$('.work-lightbox').css('left', function(){
+			$('.work-lightbox:visible').css('left', function(){
 				return $(window).width()/2 - $(this).width()/2;
 			});
-			$('.work-lightbox > .bottom-bar > .title').css('margin-right', function(){
+			$('.work-lightbox > .bottom-bar > .title:visible').css('margin-right', function(){
 				return 0 -$(this).width();
 			});
-			$('.details').css('margin-left', function(){
+			$('.details:visible').css('margin-left', function(){
 				return 0 - $(this).width();
 			});
 		};
+
 
 		var initLightBox = function(lightBox){
 			numSlides = lightBox.children('img').length;
@@ -75,15 +96,32 @@ $(document).ready(function(){
 			lightBox.css('width', '');
 			lightBox.css('height', '');
 			position(lightBox);
+			if (lightBox.prev().prev().length == 0) {
+				$('#prev-proj').hide();
+				$('#next-proj').text('next project');
+			} else {
+				$('#prev-proj').show();
+				$('#next-proj').text(' / next project');
+			}
+			if (lightBox.next().next().length == 0) {
+				$('#next-proj').hide();
+			} else {
+				$('#next-proj').show();
+			}
 		};
 
 		var lightBox = $('.work-lightbox'),
 				numSlides,
 				slides,
 				currSlide = 0,
-				transitioning = false;
+				transitioning = false,
+				projNum;
 
 		$('.work-link').click(function(){
+
+			// Set query string
+			projNum = $(this).prevAll('.work-link').length;
+			history.pushState({}, "blah", "?project="+projNum)
 
 			// Establish context
 			lightBox = $(this).next('.work-lightbox');
@@ -141,24 +179,37 @@ $(document).ready(function(){
 		});
 
 		$('#next-proj').click(function(){
+			projNum++;
+			history.pushState({}, "blah", "?project="+projNum)
 			lightBox.hide();
-			lightBox = lightBox.siblings('.work-lightbox').first();
+			lightBox = lightBox.next().next('.work-lightbox');
 			initLightBox(lightBox);
 		});
 
+		$('#prev-proj').click(function(){
+			projNum--;
+			history.pushState({}, "blah", "?project="+projNum)
+			lightBox.hide();
+			lightBox = lightBox.prev().prev('.work-lightbox');
+			initLightBox(lightBox);
+		});
+
+
 		$('#main-tinted, #proj-x').click(function(){
+			history.pushState({}, "blah", '?')
 			lightboxFadeOut(lightBox);
 			$('#proj-nav').fadeOut('fast');
 		});
 
+		if (parseFloat(getParameterByName('project')) <= ($('.work-lightbox').length)-1) {
+			lightBox = $('.work-lightbox').eq(parseFloat(getParameterByName('project')));
+			initLightBox(lightBox);
+			$('#proj-nav').fadeIn('fast');
+		}
+
+		$(window).resize(function(){
+			position(lightBox)
+		});
 	})();
-
-
-
-
-
-	// On window resize
-
-	// $(window).resize(position());
 
 });
