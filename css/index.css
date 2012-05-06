@@ -1,5 +1,5 @@
 body {
-	font-family: Helvetica, Arial, Sans-serif;
+	font-family: "p22-underground", Helvetica, Arial, Sans-serif;
 	font-size: 11px;
 	color: #414141;
 	-webkit-font-smoothing:antialiased;
@@ -9,24 +9,71 @@ body {
 	background-color: #eee;
 }
 
-a:link {
+a:link, a:visited {
 	color: #414141;
 	text-decoration: none;
+}
+
+.dimmed {
+	opacity: 0.3;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+}
+
+.unselectable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.unselectable:hover {
+	cursor:default;
+}
+
+#top, #bottom, #left, #right {
+	background-color: #eee;
+	position: fixed;
+	z-index: 99;
+}
+#top, #left {
+	top: 0;
+	left: 0;
+}
+#bottom, #right {
+	bottom: 0;
+	right: 0;
+}
+
+#top, #bottom {
+	width: 100%;
+	height: 10px;
+}
+
+#left, #right {
+	width: 10px;
+	height: 100%;
 }
 
 #main {
 	padding: 40px 75px;
 	margin: 10px;
 	background-color:#FFF;
+	text-align: center;
 }
 
-#main-tinted {
-	background-color: #333;
+#main-tinted-dark, #main-tinted-light {
 	opacity: 0.8;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
 	position: fixed;
 	top: 10px;
 	left: 10px;
 	display: none;
+}
+#main-tinted-dark {
+	background-color: #333;
+}
+
+#main-tinted-light {
+	background-color: #fff;
 }
 
 #twitter {
@@ -38,11 +85,28 @@ a:link {
 #head {
 	height: 133px;
 	vertical-align: bottom;
-	min-width: 1024px;
+	margin: 0 auto;
+	text-align: left;
+}
+@media only screen and (max-width: 1190px) {
+	#head, #work {
+		width: 770px;
+	}
+}
+@media only screen and (max-width: 1451px) and (min-width: 1191px) {
+	#head, #work {
+		width: 1026px;
+	}
+}
+@media only screen and (min-width: 1452px) {
+	#head, #work {
+		width: 1283px;
+	}
 }
 
 #head-left {
 	float: left;
+	width: 200px;
 }
 #head-left .sections {
 	text-transform: uppercase;
@@ -54,26 +118,34 @@ a:link {
 	border-bottom: 1px solid #424242;
 	margin: 6px 0;
 }
-#head-left #bottom {
+#head-left #head-nav {
 	line-height: 1.7;
 }
-#head-left #bottom #filter-container {
+#head-left #head-nav a:link, #head-left #head-nav a:visited {
+	color: #424242;
 }
-#head-left #bottom #filter {
+#head-left #head-nav a:hover {
+	text-decoration: underline;
+}
+
+#head-left #head-nav #filter-container {
+}
+#head-left #head-nav #filter {
 	width: 0px;
 	overflow: hidden;
 	display: inline-block;
 	vertical-align: bottom;
 }
-#head-left #bottom #inner-filters {
+#head-left #head-nav #inner-filters {
 	width: 500px;
 	vertical-align: bottom;
 }
-#head-left #bottom #filter a {
+#head-left #head-nav #filter a:link {
 	font-weight: bold;
 	text-transform: uppercase;
+	text-decoration: none;
 }
-#head-left #bottom #filter a:hover {
+#head-left #head-nav #filter a:hover {
 	border-bottom: 1px solid #424242;
 }
 #headline {
@@ -89,6 +161,7 @@ a:link {
 #head-right {
 	float: right;
 	text-align: right;
+	margin-top: 20px;
 }
 
 #head-right img {
@@ -99,15 +172,23 @@ a:link {
 	display: inline-block;
 	line-height: 1.3;
 }
+#info a:link, #info a:visited {
+	color: #424242;
+}
+#info a:hover {
+	text-decoration: underline;
+}
 
 #work {
-	min-width: 1026px;
+	margin: 0 auto;
+	text-align: left;
 }
 
 .work-item {
 	width: 250px;
 	height: 205px;
-	margin: 2px;
+	margin-right: 4px;
+	margin-bottom: 4px;
 	display: inline-block;
 }
 
@@ -136,6 +217,7 @@ a:link {
 .work-lightbox .bottom-bar {
 	background-color: #eeeeee;
 	opacity: 0.9;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
 	margin-top: -2px;
 	padding-top: 10px;
 	height: 20px;
@@ -154,6 +236,7 @@ a:link {
 	bottom: 30px;
 	background-color: #eeeeee;
 	opacity: 0.95;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
 	display: none;
 	color: #636363;
 	padding: 40px 80px;
@@ -169,6 +252,11 @@ a:link {
 .work-lightbox .bottom-bar .slide-ctrl {
 	display: inline-block;
 	margin: 0 auto;
+}
+.work-lightbox .bottom-bar .slide-ctrl .left-backup, .work-lightbox .bottom-bar .slide-ctrl .right-backup{
+	display: none;
+	opacity: 0.5;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
 
 .work-lightbox .bottom-bar .slide-ctrl .slide-count {
@@ -192,6 +280,13 @@ a:link {
 	right: 0;
 	z-index: 99;
 	display: none;
+	background-color: #fff;
+}
+#proj-nav a:hover {
+	border-bottom: 1px solid #999;
+}
+#proj-nav a#proj-x:hover {
+	border: none;
 }
 #proj-nav #padding {
 	background-color: #eee;
@@ -202,7 +297,7 @@ a:link {
 	margin: 0;
 }
 #proj-nav #proj-x {
-	margin: 0 0 -2px -2px;
+	margin: 0 0 -2px -3px;
 	display: inline-block;
 	vertical-align: bottom;
 }

@@ -5,14 +5,21 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/imagesloaded.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="http://use.typekit.com/gla4qwn.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
 
-	<div id="main-tinted">
-	</div>
+	<div id="main-tinted-dark"></div>
+	<div id="main-tinted-light"></div>
 
-	<a id="twitter" href="#"><img src="img/twitter_sm.gif" alt="" /></a>
+	<a id="twitter" href="https://twitter.com/charlesrubino" target="_blank"><img src="img/twitter_sm.gif" alt="" /></a>
+	<div id="top"></div>
+	<div id="bottom"></div>
+	<div id="left"></div>
+	<div id="right"></div>
 	<div id="main">
 
 		<div id="head">
@@ -20,9 +27,9 @@
 				<div id="headline">chris rubino</div>
 				<div id="subhead">art direction / design</div>
 				<div id="rule"></div>
-				<div id="bottom">
-					<span class="sections">EMAIL</span> studio@chrisrubino.com<br/>
-					<span class="sections">SELECTED</span> press & info<br/>
+				<div id="head-nav">
+					<span class="sections">EMAIL</span> <a href="mailto:studio@chrisrubino.com">studio@chrisrubino.com</a><br/>
+					<span class="sections">SELECTED</span> <a href="javascript:void(0);" id="press">press & info</a><br/>
 					<div id="filter-container">
 						<span class="sections">FILTER</span> VIEW BY
 						<div id="filter">
@@ -41,14 +48,16 @@
 			</div>
 			<div id="head-right">
 				<div id="info">
-					<span id="illo-rep">ILLUSTRATION REPRESENTATIVE</span><br/>
-					Art Department<br/>
-					Illustration Division<br/>
-					420 W 24th Street. #1F New York<br/>
-					T: 212.243.2103
+					<a href="http://www.illustrationdivision.com/rubino/index.html" target="_blank">
+						<span id="illo-rep">ILLUSTRATION REPRESENTATIVE</span><br/>
+						Art Department<br/>
+						Illustration Division<br/>
+						420 W 24th Street. #1F New York<br/>
+						T: 212.243.2103
+					</a>
 				</div>
-				<img src="img/shop-up.gif" alt=""/>
-				<img src="img/something-up.gif" alt=""/>
+				<a href="javascript:void(0)" id="shop"><img src="img/shop-up.gif" alt=""/></a>
+				<a href="http://something.chrisrubino.com/" target="_blank"><img src="img/something-up.gif" alt=""/></a>
 			</div>
 		</div>
 
@@ -59,8 +68,8 @@
 			<!-- ################################################################## -->
 
 			<a href="javascript:void(0)" class="work-link">
-				<!--                  category name           hover color            --> 
-				<div class="work-item architecture" data-color="#00bdf7">
+				<!--                  category name           hover color   lightbox background (dark or light)--> 
+				<div class="work-item architecture" data-color="#00bdf7" data-bg="dark">
 					<img src="img/work/work-1-thumb.gif" alt=""/>
 					<div class="desc">
 						<span class="title">DISTRIKT Hotel</span>
@@ -70,9 +79,10 @@
 			</a>
 
 			<div class="work-lightbox">
-				<!-- Images in slideshow go here -->
+				<!-- Images/video in slideshow go here -->
  				<img src="img/work/work-1.gif" alt=""/>
 				<img src="img/work/work-2.gif" alt=""/>
+				<iframe src="http://player.vimeo.com/video/28079341?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="800" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
  				<!-- End of slideshow -->
  				<div class="stretcher"></div>
  				<div class="desc-box">
@@ -82,9 +92,11 @@
 				<div class="bottom-bar">
 					<div class="title">test</div>
 					<div class="slide-ctrl">
-						<img src="img/left.png" class="arrow" data-dir="left" alt=""/>
-						<span class="slide-count"></span>
-						<img src="img/right.png" class="arrow" data-dir="right" alt=""/>
+						<a href="javascript:void(0);" class="left arrow" data-dir="left"><img src="img/left.png" alt=""/></a>
+						<img src="img/left.png" class="left-backup" alt=""/>
+						<span class="slide-count unselectable"></span>
+						<a href="javascript:void(0);" class="right arrow" data-dir="right"><img src="img/right.png" alt=""/></a>
+						<img src="img/right.png" class="right-backup" alt=""/>
 					</div>
 					<a href="javascript:void(0);" class="details">see&nbsp;details</a>
 				</div>
@@ -97,8 +109,8 @@
 			<!-- ################################################################## -->
 
 			<a href="javascript:void(0)" class="work-link">
-				<!--                  category name           hover color            --> 
-				<div class="work-item print" data-color="#00bdf7">
+				<!--                  category name           hover color   lightbox background (dark or light)--> 
+				<div class="work-item architecture" data-color="#00bdf7" data-bg="dark">
 					<img src="img/work/work-1-thumb.gif" alt=""/>
 					<div class="desc">
 						<span class="title">DISTRIKT Hotel</span>
@@ -108,9 +120,10 @@
 			</a>
 
 			<div class="work-lightbox">
-				<!-- Images in slideshow go here -->
+				<!-- Images/video in slideshow go here -->
  				<img src="img/work/work-1.gif" alt=""/>
 				<img src="img/work/work-2.gif" alt=""/>
+				<iframe src="http://player.vimeo.com/video/28079341?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="800" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
  				<!-- End of slideshow -->
  				<div class="stretcher"></div>
  				<div class="desc-box">
@@ -120,9 +133,11 @@
 				<div class="bottom-bar">
 					<div class="title">test</div>
 					<div class="slide-ctrl">
-						<img src="img/left.png" class="arrow" data-dir="left" alt=""/>
-						<span class="slide-count"></span>
-						<img src="img/right.png" class="arrow" data-dir="right" alt=""/>
+						<a href="javascript:void(0);" class="left arrow" data-dir="left"><img src="img/left.png" alt=""/></a>
+						<img src="img/left.png" class="left-backup" alt=""/>
+						<span class="slide-count unselectable"></span>
+						<a href="javascript:void(0);" class="right arrow" data-dir="right"><img src="img/right.png" alt=""/></a>
+						<img src="img/right.png" class="right-backup" alt=""/>
 					</div>
 					<a href="javascript:void(0);" class="details">see&nbsp;details</a>
 				</div>
@@ -135,8 +150,8 @@
 			<!-- ################################################################## -->
 
 			<a href="javascript:void(0)" class="work-link">
-				<!--                  category name           hover color            --> 
-				<div class="work-item illustration" data-color="#00bdf7">
+				<!--                  category name           hover color   lightbox background (dark or light)--> 
+				<div class="work-item architecture" data-color="#00bdf7" data-bg="dark">
 					<img src="img/work/work-1-thumb.gif" alt=""/>
 					<div class="desc">
 						<span class="title">DISTRIKT Hotel</span>
@@ -146,9 +161,10 @@
 			</a>
 
 			<div class="work-lightbox">
-				<!-- Images in slideshow go here -->
+				<!-- Images/video in slideshow go here -->
  				<img src="img/work/work-1.gif" alt=""/>
 				<img src="img/work/work-2.gif" alt=""/>
+				<iframe src="http://player.vimeo.com/video/28079341?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="800" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
  				<!-- End of slideshow -->
  				<div class="stretcher"></div>
  				<div class="desc-box">
@@ -158,9 +174,11 @@
 				<div class="bottom-bar">
 					<div class="title">test</div>
 					<div class="slide-ctrl">
-						<img src="img/left.png" class="arrow" data-dir="left" alt=""/>
-						<span class="slide-count"></span>
-						<img src="img/right.png" class="arrow" data-dir="right" alt=""/>
+						<a href="javascript:void(0);" class="left arrow" data-dir="left"><img src="img/left.png" alt=""/></a>
+						<img src="img/left.png" class="left-backup" alt=""/>
+						<span class="slide-count unselectable"></span>
+						<a href="javascript:void(0);" class="right arrow" data-dir="right"><img src="img/right.png" alt=""/></a>
+						<img src="img/right.png" class="right-backup" alt=""/>
 					</div>
 					<a href="javascript:void(0);" class="details">see&nbsp;details</a>
 				</div>
@@ -173,8 +191,8 @@
 			<!-- ################################################################## -->
 
 			<a href="javascript:void(0)" class="work-link">
-				<!--                  category name           hover color            --> 
-				<div class="work-item logos" data-color="#00bdf7">
+				<!--                  category name           hover color   lightbox background (dark or light)--> 
+				<div class="work-item architecture" data-color="#00bdf7" data-bg="dark">
 					<img src="img/work/work-1-thumb.gif" alt=""/>
 					<div class="desc">
 						<span class="title">DISTRIKT Hotel</span>
@@ -184,9 +202,10 @@
 			</a>
 
 			<div class="work-lightbox">
-				<!-- Images in slideshow go here -->
+				<!-- Images/video in slideshow go here -->
  				<img src="img/work/work-1.gif" alt=""/>
 				<img src="img/work/work-2.gif" alt=""/>
+				<iframe src="http://player.vimeo.com/video/28079341?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="800" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
  				<!-- End of slideshow -->
  				<div class="stretcher"></div>
  				<div class="desc-box">
@@ -196,9 +215,11 @@
 				<div class="bottom-bar">
 					<div class="title">test</div>
 					<div class="slide-ctrl">
-						<img src="img/left.png" class="arrow" data-dir="left" alt=""/>
-						<span class="slide-count"></span>
-						<img src="img/right.png" class="arrow" data-dir="right" alt=""/>
+						<a href="javascript:void(0);" class="left arrow" data-dir="left"><img src="img/left.png" alt=""/></a>
+						<img src="img/left.png" class="left-backup" alt=""/>
+						<span class="slide-count unselectable"></span>
+						<a href="javascript:void(0);" class="right arrow" data-dir="right"><img src="img/right.png" alt=""/></a>
+						<img src="img/right.png" class="right-backup" alt=""/>
 					</div>
 					<a href="javascript:void(0);" class="details">see&nbsp;details</a>
 				</div>
@@ -211,8 +232,8 @@
 			<!-- ################################################################## -->
 
 			<a href="javascript:void(0)" class="work-link">
-				<!--                  category name           hover color            --> 
-				<div class="work-item logos" data-color="#00bdf7">
+				<!--                  category name           hover color   lightbox background (dark or light)--> 
+				<div class="work-item architecture" data-color="#00bdf7" data-bg="dark">
 					<img src="img/work/work-1-thumb.gif" alt=""/>
 					<div class="desc">
 						<span class="title">DISTRIKT Hotel</span>
@@ -222,9 +243,10 @@
 			</a>
 
 			<div class="work-lightbox">
-				<!-- Images in slideshow go here -->
+				<!-- Images/video in slideshow go here -->
  				<img src="img/work/work-1.gif" alt=""/>
 				<img src="img/work/work-2.gif" alt=""/>
+				<iframe src="http://player.vimeo.com/video/28079341?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="800" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
  				<!-- End of slideshow -->
  				<div class="stretcher"></div>
  				<div class="desc-box">
@@ -234,9 +256,11 @@
 				<div class="bottom-bar">
 					<div class="title">test</div>
 					<div class="slide-ctrl">
-						<img src="img/left.png" class="arrow" data-dir="left" alt=""/>
-						<span class="slide-count"></span>
-						<img src="img/right.png" class="arrow" data-dir="right" alt=""/>
+						<a href="javascript:void(0);" class="left arrow" data-dir="left"><img src="img/left.png" alt=""/></a>
+						<img src="img/left.png" class="left-backup" alt=""/>
+						<span class="slide-count unselectable"></span>
+						<a href="javascript:void(0);" class="right arrow" data-dir="right"><img src="img/right.png" alt=""/></a>
+						<img src="img/right.png" class="right-backup" alt=""/>
 					</div>
 					<a href="javascript:void(0);" class="details">see&nbsp;details</a>
 				</div>
@@ -245,125 +269,19 @@
 			<!-- END PROJECT ITEM. -->
 			<!-- ################################################################## -->
 
-			<!-- START PROJECT ITEM. Copy and paste this code to make a new work item. -->
-			<!-- ################################################################## -->
-
-			<a href="javascript:void(0)" class="work-link">
-				<!--                  category name           hover color            --> 
-				<div class="work-item architecture" data-color="#00bdf7">
-					<img src="img/work/work-1-thumb.gif" alt=""/>
-					<div class="desc">
-						<span class="title">DISTRIKT Hotel</span>
-						Collages, Wallpaper & Woodwork for 32 story Hotel in midtown Manhattan Building by OTTE ARCHITECTURE
-					</div>
-				</div>
-			</a>
-
-			<div class="work-lightbox">
-				<!-- Images in slideshow go here -->
- 				<img src="img/work/work-1.gif" alt=""/>
-				<img src="img/work/work-2.gif" alt=""/>
- 				<!-- End of slideshow -->
- 				<div class="stretcher"></div>
- 				<div class="desc-box">
- 					<a href="javascript:void(0);" class="x"><img src="img/x.gif" alt=""/></a>
- 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- 				</div>
-				<div class="bottom-bar">
-					<div class="title">test</div>
-					<div class="slide-ctrl">
-						<img src="img/left.png" class="arrow" data-dir="left" alt=""/>
-						<span class="slide-count"></span>
-						<img src="img/right.png" class="arrow" data-dir="right" alt=""/>
-					</div>
-					<a href="javascript:void(0);" class="details">see&nbsp;details</a>
-				</div>
+			<div class="work-lightbox" id="press-box">
+				<iframe src="http://chrisrubino.com/clientlist.html" width="1100" height="450" frameborder="0"></iframe>
 			</div>
 
-			<!-- END PROJECT ITEM. -->
-			<!-- ################################################################## -->
-
-			<!-- START PROJECT ITEM. Copy and paste this code to make a new work item. -->
-			<!-- ################################################################## -->
-
-			<a href="javascript:void(0)" class="work-link">
-				<!--                  category name           hover color            --> 
-				<div class="work-item architecture" data-color="#00bdf7">
-					<img src="img/work/work-1-thumb.gif" alt=""/>
-					<div class="desc">
-						<span class="title">DISTRIKT Hotel</span>
-						Collages, Wallpaper & Woodwork for 32 story Hotel in midtown Manhattan Building by OTTE ARCHITECTURE
-					</div>
-				</div>
-			</a>
-
-			<div class="work-lightbox">
-				<!-- Images in slideshow go here -->
- 				<img src="img/work/work-1.gif" alt=""/>
-				<img src="img/work/work-2.gif" alt=""/>
- 				<!-- End of slideshow -->
- 				<div class="stretcher"></div>
- 				<div class="desc-box">
- 					<a href="javascript:void(0);" class="x"><img src="img/x.gif" alt=""/></a>
- 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- 				</div>
-				<div class="bottom-bar">
-					<div class="title">test</div>
-					<div class="slide-ctrl">
-						<img src="img/left.png" class="arrow" data-dir="left" alt=""/>
-						<span class="slide-count"></span>
-						<img src="img/right.png" class="arrow" data-dir="right" alt=""/>
-					</div>
-					<a href="javascript:void(0);" class="details">see&nbsp;details</a>
-				</div>
+			<div class="work-lightbox" id="shop-box">
+				<iframe src="http://chrisrubino.com/shop" width="1100" height="450" frameborder="0"></iframe>
 			</div>
 
-			<!-- END PROJECT ITEM. -->
-			<!-- ################################################################## -->
-
-			<!-- START PROJECT ITEM. Copy and paste this code to make a new work item. -->
-			<!-- ################################################################## -->
-
-			<a href="javascript:void(0)" class="work-link">
-				<!--                  category name           hover color            --> 
-				<div class="work-item architecture" data-color="#00bdf7">
-					<img src="img/work/work-1-thumb.gif" alt=""/>
-					<div class="desc">
-						<span class="title">DISTRIKT Hotel</span>
-						Collages, Wallpaper & Woodwork for 32 story Hotel in midtown Manhattan Building by OTTE ARCHITECTURE
-					</div>
-				</div>
-			</a>
-
-			<div class="work-lightbox">
-				<!-- Images in slideshow go here -->
- 				<img src="img/work/work-1.gif" alt=""/>
-				<img src="img/work/work-2.gif" alt=""/>
- 				<!-- End of slideshow -->
- 				<div class="stretcher"></div>
- 				<div class="desc-box">
- 					<a href="javascript:void(0);" class="x"><img src="img/x.gif" alt=""/></a>
- 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- 				</div>
-				<div class="bottom-bar">
-					<div class="title">test</div>
-					<div class="slide-ctrl">
-						<img src="img/left.png" class="arrow" data-dir="left" alt=""/>
-						<span class="slide-count"></span>
-						<img src="img/right.png" class="arrow" data-dir="right" alt=""/>
-					</div>
-					<a href="javascript:void(0);" class="details">see&nbsp;details</a>
-				</div>
-			</div>
-
-			<!-- END PROJECT ITEM. -->
-			<!-- ################################################################## -->
-
-		</div>
+		</div> <!-- id="work" -->
 
 		<div id="proj-nav">
 			<div id="padding">
-				<a href="javascript:void(0);" id="prev-proj">previous</a><a href="javascript:void(0);" id="next-proj"> / next project</a>
+				<a href="javascript:void(0);" id="prev-proj">previous</a><span id='sep'> / </span><a href="javascript:void(0);" id="next-proj">next project</span></a>
 			</div>
 			<a href="javascript:void(0);" id="proj-x"><img src="img/x.gif" alt=""/></a>
 		</div>
