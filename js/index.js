@@ -55,10 +55,10 @@ $(document).ready(function () {
 
 	// Preloading
 
-	$('.work-lightbox > img').attr('data-src', function(){
+	$('.work-lightbox > img, .work-lightbox > iframe').attr('data-src', function(){
 		return $(this).attr('src');
 	});
-	$('.work-lightbox > img').removeAttr('src');
+	$('.work-lightbox > img, .work-lightbox > iframe').removeAttr('src');
 
 	$('.work-lightbox').prepend('<div class="loading"></div>');
 
@@ -104,7 +104,7 @@ $(document).ready(function () {
 			lightBox.find('.slide-count').text(currSlide+1+" of " + numSlides);
 
 			// Load images
-			$('.work-lightbox > img').attr('src', function(){
+			$('.work-lightbox > img, .work-lightbox > iframe').attr('src', function(){
 				return $(this).attr('data-src');
 			});
 
@@ -261,9 +261,8 @@ $(document).ready(function () {
 			}
 			lightBox.hide();
 			slides.each(function (i){
-				var src = $(this).attr('src');
+				// Remove src to prevent vimeo videos playing
 				$(this).attr('src', '');
-				$(this).attr('src', src);
 			});
 			lightBox = lightBox.next().next('.work-lightbox');
 			initLightBox(lightBox, $(lightBox).prev().find('.work-item').attr('data-bg'));
@@ -276,9 +275,8 @@ $(document).ready(function () {
 			}
 			lightBox.hide();
 			slides.each(function (i){
-				var src = $(this).attr('src');
+				// Remove src to prevent vimeo videos playing
 				$(this).attr('src', '');
-				$(this).attr('src', src);
 			});
 			lightBox = lightBox.prev().prev('.work-lightbox');
 			initLightBox(lightBox, $(lightBox).prev().find('.work-item').attr('data-bg'));
@@ -290,6 +288,10 @@ $(document).ready(function () {
 				history.pushState({}, "blah", '?')
 			}
 			lightboxFadeOut(lightBox);
+			slides.each(function (i){
+				// Remove src to prevent vimeo videos playing
+				$(this).attr('src', '');
+			});
 			$('#proj-nav').fadeOut('fast');
 		});
 
