@@ -104,7 +104,7 @@ $(document).ready(function () {
 			lightBox.find('.slide-count').text(currSlide+1+" of " + numSlides);
 
 			// Load images
-			$('.work-lightbox > img, .work-lightbox > iframe').attr('src', function(){
+			lightBox.children('img, iframe').attr('src', function(){
 				return $(this).attr('data-src');
 			});
 
@@ -206,9 +206,11 @@ $(document).ready(function () {
 				transitioning = true;
 				slides.eq(currSlide).animate({opacity: 0}, 'fast', function () {
 
+					// Pause vimeo video
 					var src = $(this).attr('src');
 					$(this).attr('src', '');
 					$(this).attr('src', src);
+
 					$(this).hide().css({ opacity: 1 });
 
 					// Fix lightbox dimension after image is hidden
@@ -238,7 +240,8 @@ $(document).ready(function () {
 					}, { duration: 500 });
 					lightBox.animate({
 						width:  	 slides.eq(currSlide).width(),
-						top: 			 $(window).height()/2 - slides.eq(currSlide).height()/2,
+						// Add 30 to height for bottom navbar
+						top: 			 $(window).height()/2 - (slides.eq(currSlide).height() + 30) / 2,
 						left: 		 $(window).width()/2 - slides.eq(currSlide).width()/2
 					}, {
 						step: 		 function () {},
