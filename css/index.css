@@ -214,6 +214,16 @@ a:link, a:visited {
 	background-color: #eeeeee;
 }
 
+.work-lightbox .loading {
+	width: 400px; height: 200px;
+	background: transparent url('../img/loading.gif') no-repeat center center;
+}
+
+//.work-lightbox img {
+//	top: 0; left: 0;
+//	z-index: 10;
+//}
+
 .work-lightbox .bottom-bar {
 	background-color: #eeeeee;
 	opacity: 0.9;

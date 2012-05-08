@@ -52,6 +52,16 @@ $(document).ready(function () {
 
 	});
 
+
+	// Preloading
+
+	$('.work-lightbox > img').attr('data-src', function(){
+		return $(this).attr('src');
+	});
+	$('.work-lightbox > img').removeAttr('src');
+
+	$('.work-lightbox').prepend('<div class="loading"></div>');
+
 	// Lightbox
 
 	(function () {
@@ -93,6 +103,11 @@ $(document).ready(function () {
 			// Inject slide count
 			lightBox.find('.slide-count').text(currSlide+1+" of " + numSlides);
 
+			// Load images
+			$('.work-lightbox > img').attr('src', function(){
+				return $(this).attr('data-src');
+			});
+
 			// Display initial elements
 			if (bg === 'dark') {
 				$('#main-tinted-light:visible').fadeOut();
@@ -103,10 +118,11 @@ $(document).ready(function () {
 			lightBox.fadeIn();
 			slides.hide();
 
-			slides.eq(0).show();
 			lightBox.css('width', '');
 			lightBox.css('height', '');
 			lightBox.imagesLoaded(function () {
+				slides.eq(0).show();
+				lightBox.find('.loading').hide();
 				position(lightBox);
 			});
 
