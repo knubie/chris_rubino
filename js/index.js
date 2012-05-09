@@ -55,10 +55,10 @@ $(document).ready(function () {
 
 	// Preloading
 
-	$('.work-lightbox > img, .work-lightbox > iframe').attr('data-src', function(){
-		return $(this).attr('src');
-	});
-	$('.work-lightbox > img, .work-lightbox > iframe').removeAttr('src');
+	// $('.work-lightbox > img, .work-lightbox > iframe').attr('data-src', function(){
+	// 	return $(this).attr('src');
+	// });
+	// $('.work-lightbox > img, .work-lightbox > iframe').removeAttr('src');
 
 	$('.work-lightbox').prepend('<div class="loading"></div>');
 
@@ -66,47 +66,58 @@ $(document).ready(function () {
 
 	(function () {
 
+		var lightBox = $('.work-lightbox'),
+				numSlides,
+				slides,
+				currSlide = 0,
+				transitioning = false,
+				projNum,
+				$loading = lightBox.find('.loading'),
+				$stretcher = lightBox.find('.stretcher');
+
+		var resetVimeo = function() {
+			slides.each(function (i){
+				if ($(this).is('iframe')) {
+					$(this).attr('src', '');
+				}
+			});
+		}
+
 		var lightboxFadeOut = function(lightBox) {
 			$('#main-tinted-dark, #main-tinted-light').fadeOut();
 			lightBox.fadeOut();
-			slides.each(function (i) {
-				var src = $(this).attr('src');
-				$(this).attr('src', '');
-				$(this).attr('src', src);
-			});
+			resetVimeo();
 		};
 
 		var position = function(lightBox) {
-			$('#main-tinted-light').css('width', $(window).width()-20).css('height', $(window).height()-10);
-			$('#main-tinted-dark').css('width', $(window).width()-20).css('height', $(window).height()-10);
+			$('#main-tinted-light, #main-tinted-dark').css('width', $(window).width()-20).css('height', $(window).height()-10);
 			lightBox.css('top', function() {
 				return $(window).height()/2 - $(this).height()/2;
 			});
-			$('.work-lightbox:visible').css('left', function() {
+			lightBox.css('left', function() {
 				return $(window).width()/2 - $(this).width()/2;
 			});
-			$('.work-lightbox > .bottom-bar > .title:visible').css('margin-right', function() {
+			lightBox.find('.title').css('margin-right', function() {
 				return 0 -$(this).width();
 			});
-			$('.details:visible').css('margin-left', function() {
+			lightBox.find('.details').css('margin-left', function() {
 				return 0 - $(this).width();
 			});
 		};
 
 
 		var initLightBox = function (lightBox, bg) {
+
+			// lightbox variables
 			numSlides = lightBox.children('img, iframe').length;
 			slides = lightBox.children('img, iframe');
 			currSlide = 0;
 			transitioning = false;
+			$loading = lightBox.find('.loading');
+			$stretcher = lightBox.find('.stretcher');
 
 			// Inject slide count
 			lightBox.find('.slide-count').text(currSlide+1+" of " + numSlides);
-
-			// Load images
-			lightBox.children('img, iframe').attr('src', function(){
-				return $(this).attr('data-src');
-			});
 
 			// Display initial elements
 			if (bg === 'dark') {
@@ -115,17 +126,10 @@ $(document).ready(function () {
 				$('#main-tinted-dark:visible').fadeOut();
 			}
 			$('#main-tinted-'+bg).fadeIn();
-			lightBox.fadeIn();
 			slides.hide();
-
+			$loading.show();
 			lightBox.css('width', '');
 			lightBox.css('height', '');
-			lightBox.imagesLoaded(function () {
-				slides.eq(0).show();
-				lightBox.find('.loading').hide();
-				position(lightBox);
-			});
-
 			lightBox.find('.left').hide();
 			lightBox.find('.left-backup').show();
 			lightBox.find('.right').show();
@@ -143,14 +147,61 @@ $(document).ready(function () {
 			if (lightBox.next().next().length !== 0 && lightBox.prev().prev().length !== 0) {
 				$('#sep').show();
 			}
-		};
+			position(lightBox);
 
-		var lightBox = $('.work-lightbox'),
-				numSlides,
-				slides,
-				currSlide = 0,
-				transitioning = false,
-				projNum;
+			// start vimeo video if it's the current slide
+			if (slides.eq(currSlide).is('iframe')) {
+				slides.eq(currSlide).attr('src', function(){
+					return $(this).attr('data-src');
+				});
+			}
+
+			// Load images in slideshow
+			lightBox.children('img').attr('src', function(){
+				return $(this).attr('data-src');
+			});
+			
+			
+			lightBox.fadeIn(function(){
+
+				lightBox.imagesLoaded(function () {
+
+					$loading.hide();
+
+					// retain lightbox dimensions after loading hides
+					$stretcher.css('height', $loading.height()+2).show();
+					lightBox.css('width', $loading.width());
+
+					// begin animating lightbox dimensions to fit next slide
+					$stretcher.animate({
+						height: slides.eq(0).height()+2
+					}, {
+						duration: 400,
+						queue: false
+					});
+
+					lightBox.animate({
+						width:  	 slides.eq(currSlide).width(),
+						// Add 30 to height for bottom navbar
+						top: 			 $(window).height()/2 - (slides.eq(0).height() + 30) / 2,
+						left: 		 $(window).width()/2 - slides.eq(0).width()/2
+					}, {
+						duration:  400,
+						queue: false,
+						complete:  function () {
+							$stretcher.hide();
+							// fade in new slide
+							slides.eq(0).fadeIn('fast',function () {
+								transitioning = false;
+							});
+						}
+					});
+
+				}); // images loaded
+
+			}); // fadein callback
+			
+		};
 
 		$('#press').click(function() {
 			lightBox = $('#press-box');
@@ -204,19 +255,17 @@ $(document).ready(function () {
 
 				// Start transition
 				transitioning = true;
-				slides.eq(currSlide).animate({opacity: 0}, 'fast', function () {
+
+				// Fix lightbox dimension after image is hidden
+				lightBox.css('width', slides.eq(currSlide).width());
+				$stretcher.css('height', slides.eq(currSlide).height()+2);
+				
+				slides.eq(currSlide).fadeOut('fast', function () {
+
+					$stretcher.show();
 
 					// Pause vimeo video
-					var src = $(this).attr('src');
-					$(this).attr('src', '');
-					$(this).attr('src', src);
-
-					$(this).hide().css({ opacity: 1 });
-
-					// Fix lightbox dimension after image is hidden
-					lightBox.css('width', slides.eq(currSlide).width());
-					lightBox.find('.stretcher').css('height', slides.eq(currSlide).height()).show();
-					// lightBox.css('height', slides.eq(currSlide).height()+30);
+					resetVimeo();
 
 					(dir === 'right') ? currSlide++ : currSlide--;
 					if (currSlide+1 === numSlides) {
@@ -235,24 +284,42 @@ $(document).ready(function () {
 					}
 					lightBox.find('.slide-count').text(currSlide+1+" of " + numSlides);
 
-					lightBox.find('.stretcher').animate({
-						height: slides.eq(currSlide).height()
-					}, { duration: 500 });
-					lightBox.animate({
-						width:  	 slides.eq(currSlide).width(),
-						// Add 30 to height for bottom navbar
-						top: 			 $(window).height()/2 - (slides.eq(currSlide).height() + 30) / 2,
-						left: 		 $(window).width()/2 - slides.eq(currSlide).width()/2
-					}, {
-						step: 		 function () {},
-						duration:  500,
-						complete:  function () { 
-							lightBox.find('.stretcher').hide();
-							slides.eq(currSlide).fadeIn('fast',function () {
-								transitioning = false;
-							});
-						}
-					});
+					if ($stretcher.height() !== slides.eq(currSlide).height()+2) {
+						$stretcher.animate({
+							height: slides.eq(currSlide).height()+2
+						}, { duration: 400 });
+					}
+
+					if ($stretcher.height() !== slides.eq(currSlide).height()+2 || lightBox.width() !== slides.eq(currSlide).width()) {
+						lightBox.animate({
+							width:  	 slides.eq(currSlide).width(),
+							// Add 30 to height for bottom navbar
+							top: 			 $(window).height()/2 - (slides.eq(currSlide).height() + 30) / 2,
+							left: 		 $(window).width()/2 - slides.eq(currSlide).width()/2
+						}, {
+							step: 		 function () {},
+							duration:  400,
+							complete:  function () { 
+								$stretcher.hide();
+								// Put src back in for vimeo videos
+								slides.eq(currSlide).attr('src', function(){
+									return $(this).attr('data-src');
+								});
+								slides.eq(currSlide).fadeIn('fast', function () {
+									transitioning = false;
+								});
+							}
+						});
+					} else {
+						$stretcher.hide();
+						// Put src back in for vimeo videos
+						slides.eq(currSlide).attr('src', function(){
+							return $(this).attr('data-src');
+						});
+						slides.eq(currSlide).fadeIn('fast', function () {
+							transitioning = false;
+						});
+					}
 				});
 			}
 		});
@@ -263,10 +330,7 @@ $(document).ready(function () {
 				history.pushState({}, "blah", "?project="+projNum)
 			}
 			lightBox.hide();
-			slides.each(function (i){
-				// Remove src to prevent vimeo videos playing
-				$(this).attr('src', '');
-			});
+			resetVimeo();
 			lightBox = lightBox.next().next('.work-lightbox');
 			initLightBox(lightBox, $(lightBox).prev().find('.work-item').attr('data-bg'));
 		});
@@ -277,10 +341,7 @@ $(document).ready(function () {
 				history.pushState({}, "blah", "?project="+projNum)
 			}
 			lightBox.hide();
-			slides.each(function (i){
-				// Remove src to prevent vimeo videos playing
-				$(this).attr('src', '');
-			});
+			resetVimeo();
 			lightBox = lightBox.prev().prev('.work-lightbox');
 			initLightBox(lightBox, $(lightBox).prev().find('.work-item').attr('data-bg'));
 		});
@@ -291,11 +352,9 @@ $(document).ready(function () {
 				history.pushState({}, "blah", '?')
 			}
 			lightboxFadeOut(lightBox);
-			slides.each(function (i){
-				// Remove src to prevent vimeo videos playing
-				$(this).attr('src', '');
+			$('#proj-nav').fadeOut('fast', function(){
+				resetVimeo();
 			});
-			$('#proj-nav').fadeOut('fast');
 		});
 
 		if (parseFloat(getParameterByName('project')) <= ($('.work-lightbox').length)-1) {
