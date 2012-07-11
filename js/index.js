@@ -112,7 +112,7 @@ $(document).ready(function () {
 			numSlides = lightBox.children('img, iframe').length;
 			slides = lightBox.children('img, iframe');
 			currSlide = 0;
-			transitioning = false;
+			transitioning = true;
 			$loading = lightBox.find('.loading');
 			$stretcher = lightBox.find('.stretcher');
 
@@ -134,17 +134,17 @@ $(document).ready(function () {
 			lightBox.find('.left-backup').show();
 			lightBox.find('.right').show();
 			lightBox.find('.right-backup').hide();
-			if (lightBox.prev().prev().length == 0) {
+			if (lightBox.prev().prevAll('a:visible').first().next('.work-lightbox').length == 0) {
 				$('#prev-proj, #sep').hide();
 			} else {
 				$('#prev-proj').show();
 			}
-			if (lightBox.next().next().length == 0) {
+			if (lightBox.nextAll('a:visible').first().next('.work-lightbox').length == 0) {
 				$('#next-proj, #sep').hide();
 			} else {
 				$('#next-proj').show();
 			}
-			if (lightBox.next().next().length !== 0 && lightBox.prev().prev().length !== 0) {
+			if (lightBox.nextAll('a:visible').first().next('.work-lightbox').length !== 0 && lightBox.prev().prevAll('a:visible').first().next('.work-lightbox').length !== 0) {
 				$('#sep').show();
 			}
 			position(lightBox);
@@ -180,6 +180,10 @@ $(document).ready(function () {
 						queue: false
 					});
 
+					lightBox.find('.desc-box').css('width', function () {
+						slides.eq(currSlide).width() - 160
+					});
+
 					lightBox.animate({
 						width:  	 slides.eq(currSlide).width(),
 						// Add 30 to height for bottom navbar
@@ -196,10 +200,20 @@ $(document).ready(function () {
 							});
 						}
 					});
+					lightBox.find('.desc-box').css('width', function() {
+						return slides.eq(currSlide).width() - 160;
+					});
 
 				}); // images loaded
 
 			}); // fadein callback
+
+			lightBox.find('.title').css('margin-right', function() {
+				return 0 -$(this).width();
+			});
+			lightBox.find('.details').css('margin-left', function() {
+				return 0 - $(this).width();
+			});
 			
 		};
 
@@ -299,6 +313,7 @@ $(document).ready(function () {
 						}, {
 							step: 		 function () {},
 							duration:  400,
+							queue: false,
 							complete:  function () { 
 								$stretcher.hide();
 								// Put src back in for vimeo videos
@@ -310,6 +325,13 @@ $(document).ready(function () {
 								});
 							}
 						});
+
+					lightBox.find('.desc-box').animate({
+						width: slides.eq(currSlide).width() - 160
+					}, {
+						duration: 400,
+						queue: false
+					});
 					} else {
 						$stretcher.hide();
 						// Put src back in for vimeo videos
@@ -325,25 +347,35 @@ $(document).ready(function () {
 		});
 
 		$('#next-proj').click(function () {
-			projNum++;
-			if (typeof history.pushState !== 'undefined') {
-				history.pushState({}, "blah", "?project="+projNum)
+			if (transitioning) {
+				return;
+			} else {
+				projNum++;
+				if (typeof history.pushState !== 'undefined') {
+					history.pushState({}, "blah", "?project="+projNum)
+				}
+				lightBox.hide();
+				lightBox.find('.desc-box').hide();
+				resetVimeo();
+				lightBox = lightBox.nextAll('a:visible').first().next('.work-lightbox');
+				initLightBox(lightBox, $(lightBox).prev().find('.work-item').attr('data-bg'));
 			}
-			lightBox.hide();
-			resetVimeo();
-			lightBox = lightBox.next().next('.work-lightbox');
-			initLightBox(lightBox, $(lightBox).prev().find('.work-item').attr('data-bg'));
 		});
 
 		$('#prev-proj').click(function () {
-			projNum--;
-			if (typeof history.pushState !== 'undefined') {
-				history.pushState({}, "blah", "?project="+projNum)
+			if (transitioning) {
+				return;
+			} else {
+				projNum--;
+				if (typeof history.pushState !== 'undefined') {
+					history.pushState({}, "blah", "?project="+projNum)
+				}
+				lightBox.hide();
+				lightBox.find('.desc-box').hide();
+				resetVimeo();
+				lightBox = lightBox.prev().prevAll('a:visible').first().next('.work-lightbox');
+				initLightBox(lightBox, $(lightBox).prev().find('.work-item').attr('data-bg'));
 			}
-			lightBox.hide();
-			resetVimeo();
-			lightBox = lightBox.prev().prev('.work-lightbox');
-			initLightBox(lightBox, $(lightBox).prev().find('.work-item').attr('data-bg'));
 		});
 
 
@@ -352,6 +384,7 @@ $(document).ready(function () {
 				history.pushState({}, "blah", '?')
 			}
 			lightboxFadeOut(lightBox);
+			lightBox.find('.desc-box').hide();
 			$('#proj-nav').fadeOut('fast', function(){
 				resetVimeo();
 			});
